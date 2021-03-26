@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="col-lg-10 col-md-8 col-10 mx-auto ">
+  <div class="row  text-center align-center py-5 " style='background-color:rgb(245, 208, 208)'>
+    <div class="col-lg-3 col-md-4 col-12 mx-2 ">
+      <div class="card mb-2" >
+        <div class="card-body rounded"style='background-color:#8f0ea8; color:azure'>
+          <h5 class="card-title font-weight-bolder">Tatall User</h5>
+          <p class="card-text font-weight-bold">{{ totall_user }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-12 mx-2 ">
+      <div class="card mb-2" >
+        <div class="card-body rounded"style='background-color: orange'>
+          <h5 class="card-title font-weight-bolder">Unregistered Users</h5>
+          <p class="card-text font-weight-bold">{{ unregistered_user }}</p>
+        </div>
+      </div>
+    </div>
+    <hr>
+  </div>
+
+  <!-- <div class="row  text-center align-center py-5 " style='background-color:rgb(238, 216, 216)'>
+    <div class="col-lg-3 col-md-4 col-12 mx-2 ">
+      <div class="card mb-2" >
+        <div class="card-body rounded"style='background-color:#8f0ea8; color:azure'>
+          <h5 class="card-title font-weight-bolder">Totall Assets</h5>
+          <p class="card-text font-weight-bold">{{ totall }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-12 mx-2">
+        <div class="card mb-2" >
+          <div class="card-body rounded"style='background-color:#1ABC9C'>
+            <h5 class="card-title font-weight-bolder">Confirmed Assets</h5>
+            <p class="card-text font-weight-bold">{{ totall_confirms }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-12 mx-2">
+        <div class="card mb-2" >
+          <div class="card-body rounded" style='background-color:#F39C12'>
+            <h5 class="card-title font-weight-bolder">Pending Assets</h5>
+            <p class="card-text font-weight-bold">{{ totall_pendings }}</p>
+          </div>
+        </div>
+      </div> -->
+  </div>
+</div>
+{% endblock %}

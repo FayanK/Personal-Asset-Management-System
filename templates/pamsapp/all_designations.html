@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="col-lg-10 col-md-8 col-10 mx-auto ">
+    <h3 class='text-center font-weight-bolder mt-5'>Designations</h3>
+  <div class="row mt-5 text-center ">
+    <div class="col-lg-4 col-md-10 col-10 offset-1 shadow-lg mb-3 pb-3">
+        <h4 class='text-center bg-info py-1 mt-3 mb-5 text-light rounded rounded-end'>Add New</h4>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="font-weight-bold">Designation</label>
+                {{ form.name }}
+             </div>
+            <input name="" id="" class="btn btn-sm btn-success px-lg-5" type="submit" value="Add">
+        </form>
+    </div>
+    <div class = 'col-lg-4 col-md-10 offset-1 col-10 text-center shadow-lg px-1'>
+        {% if designations %}
+            <table class="table table-hover shadow-lg">
+                <thead>
+                <tr class="bg-info" style='color:aliceblue'>
+                    <th scope="col">Designation List</th>
+                    <th colspan="2" class="bg-gradient" scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in designations %}  
+                <tr class="table-info">
+                    <td class='text-left'>{{ i.name }}</td>
+                    <td>
+                        <a href="{% url 'pamsapp:edit_designation' i.id %}" class='btn btn-outline-success btn-sm'>Update</a>
+                        <form action="{% url 'pamsapp:delete_designation' i.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-outline-danger btn-sm" value="Delete">
+                        </form>
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+        <h4 class='text-center bg-info py-1 mt-3 mb-5'>Designation List</h4>
+        <h3 class="texr-center alert alert-warning mt-5"> No Record</h3>
+
+        {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+

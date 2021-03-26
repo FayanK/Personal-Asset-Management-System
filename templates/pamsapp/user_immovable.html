@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class = 'col-lg-10 col-md-8 col-10 mx-auto'>
+  <h3 class='alert alert-light text-center'>Employee Profile</h3>
+
+  <div class="card mb-3 shadow-lg " style="max-width: 540px;">
+    <div class="row no-gutters ">
+      <div class="col-lg-4 col-md-4 col-10 mx-auto" >
+        {% if e_user.profile.image %}
+        <div class='mt-3' style="width:100%; text-align:center">
+          <img src="{{ e_user.profile.image.url }}" class="card-img" alt="profile image">
+        </div>
+        {% else %}
+        <div class='mt-3' style="width:100%; text-align:center">
+          <img src="{% static 'pams/images/user-default.png' %}" class="card-img" alt="profile image">
+        </div>
+        {% endif %}
+      </div>
+      <div class="col-lg-6 col-md-8 col-10">
+        <div class="card-body">
+          <h5 class="card-title">{{ e_user.name }}
+            {% if e_user.user_type == '1' or e_user.user_type == '2' %}
+              <span style="font-size: 18px;" class="font-weight-bold text-capitalize">({{e_user.get_user_type_display}})</span>
+            {% endif %}
+          </h5>
+          <p class="card-text">{{ e_user.profile.designation }}</p>
+          <p class="card-text">{{ e_user.email }}</p>
+          <p class="card-text">{{ e_user.phone_no }}</p>
+          <p class="card-text">{{ e_user.profile.get_gender_display }}</p>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class='alert alert-light text-center'>Employee Assets</h3>
+  <div class='row'>
+    <div class="col-lg-12 col-md-12 col-12 text-center">
+        <a href="{% url 'pamsapp:view-user-all-assets' user_id=e_user.id %}">All Assets</a>
+      <a class='mr-3 ml-3' href="{% url 'pamsapp:view-user-immovable' user_id=e_user.id %}">Immovable Assets</a>
+      <a href="{% url 'pamsapp:view-user-movable' user_id=e_user.id %}">movable Assets</a>
+    </div>
+  </div>
+
+    <div class="row mt-5 text-center ">
+      <div class = 'col-lg-10 col-md-10 col-12 text-center mx-auto'>
+          <table class="table table-hover shadow-lg table-sm table-bordered">
+              <thead>
+                <tr class="bg-info" style='color:aliceblue'>
+                  <th scope="col" style='font-size:smaller'>Form ID</th>
+                  <th scope="col" style='font-size:smaller'>যার নামে অর্জিত</th>
+                  <th scope="col" style='font-size:smaller'>সম্পদ অর্জনের তারিখ</th>
+                  <th scope="col" style='font-size:smaller'>সম্পদ/সম্পত্তির প্রকৃতি ও অবস্থান</th>
+                  <th scope="col" style='font-size:smaller'>সাক্ষর</th>
+                  <th scope="col" style='font-size:smaller'>নমুনা পত্র</th>
+                  <th colspan="2" class="bg-gradient" scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if lands %}  
+                <tr>
+                  <th colspan ='6' >জমি (কৃষি/অকৃষি)</th>
+                </tr>  
+                {% for land in lands %}  
+                <tr class="table-secondary">
+                  <td class='text-left' style='font-size:smaller'>L-{{ land.id }}</td>
+                  <td class='text-left' style='font-size:smaller'>{{ land.owner }}</td>
+                  <td class='text-center' style='font-size:smaller'>{{ land.date_of_acquisition }}</td>
+                  <td style='font-size:smaller'>{{ land.class_and_location }}</td>
+                  
+                  <td style='font-size:smaller'>
+                    <a href="{{ land.signature.url }}" download>Signature</a>
+                  </td> 
+                  <td style='font-size:smaller'>
+                    {% for note in land.lands.all %}
+                    <a href="{{ note.notefield.url }}" download>Attechment{{ forloop.counter }}</a> <br>
+                    {% endfor %}
+                  </td> 
+                  <td>
+                  
+                    <a href="{% url 'pamsapp:edit-land' land.id %}" 
+                    class='btn btn-outline-info btn-sm'>View</a>
+                  {% if land.is_confirm == True %}
+                    <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
+                  {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              {% endif %}
+
+
+              {% if buildings %}  
+                <tr>
+                  <th colspan ='6' >ইমারত</th>
+                </tr>  
+                {% for building in buildings %}  
+                <tr class="table-secondary">
+                  <td class='text-left' style='font-size:smaller'>B-{{ building.id }}</td>
+                  <td class='text-left' style='font-size:smaller'>{{ building.owner }}</td>
+                  <td class='text-center' style='font-size:smaller'>{{ building.date_of_acquisition }}</td>
+                  <td style='font-size:smaller'>{{ building.class_and_location }}</td>
+                  
+                  <td style='font-size:smaller'>
+                    <a href="{{ building.signature.url }}" download>Signature</a>
+                  </td> 
+                  <td style='font-size:smaller'>
+                    {% for note in building.buildings.all %}
+                    <a href="{{ note.notefield.url }}" download>Attechment{{ forloop.counter }}</a> <br>
+                    {% endfor %}
+                  </td> 
+                  <td>
+                  
+                    <a href="{% url 'pamsapp:edit-building' building.id %}" 
+                    class='btn btn-outline-info btn-sm'>View</a>
+                  {% if building.is_confirm == True %}
+                    <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
+                  {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              {% endif %}
+
+
+              {% if homesteads %}  
+                <tr>
+                  <th colspan ='6' >বসতবাড়ী</th>
+                </tr>  
+                {% for homestead in homesteads %}  
+                <tr class="table-secondary">
+                  <td class='text-left' style='font-size:smaller'>H-{{ homestead.id }}</td>
+                  <td class='text-left' style='font-size:smaller'>{{ homestead.owner }}</td>
+                  <td class='text-center' style='font-size:smaller'>{{ homestead.date_of_acquisition }}</td>
+                  <td style='font-size:smaller'>{{ homestead.class_and_location }}</td>
+                  
+                  <td style='font-size:smaller'>
+                    <a href="{{ homestead.signature.url }}" download>Signature</a>
+                  </td> 
+                  <td style='font-size:smaller'>
+                    {% for note in homestead.homestead.all %}
+                    <a href="{{ note.notefield.url }}" download>Attechment{{ forloop.counter }}</a> <br>
+                    {% endfor %}
+                  </td> 
+                  <td>
+                  
+                    <a href="{% url 'pamsapp:edit-homestead' homestead.id %}" 
+                    class='btn btn-outline-info btn-sm'>View</a>
+                  {% if homestead.is_confirm == True %}
+                    <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
+                  {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              {% endif %}
+
+
+              {% if businessFirms %}  
+                <tr>
+                  <th colspan ='6' >ব্যবসা প্রতিষ্ঠান</th>
+                </tr>  
+                {% for businessFirm in businessFirms %}  
+                <tr class="table-secondary">
+                  <td class='text-left' style='font-size:smaller'>BF-{{ businessFirm.id }}</td>
+                  <td class='text-left' style='font-size:smaller'>{{ businessFirm.owner }}</td>
+                  <td class='text-center' style='font-size:smaller'>{{ businessFirm.date_of_acquisition }}</td>
+                  <td style='font-size:smaller'>{{ businessFirm.class_and_location }}</td>
+                  
+                  <td style='font-size:smaller'>
+                    <a href="{{ businessFirm.signature.url }}" download>Signature</a>
+                  </td> 
+                  <td style='font-size:smaller'>
+                    {% for note in businessFirm.business_Firms.all %}
+                    <a href="{{ note.notefield.url }}" download>Attechment{{ forloop.counter }}</a> <br>
+                    {% endfor %}
+                  </td> 
+                  <td>
+                  
+                    <a href="{% url 'pamsapp:edit-businessfirm' businessFirm.id %}"
+                     class='btn btn-outline-info btn-sm'>View</a>
+                  {% if businessFirm.is_confirm == True %}
+                    <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
+                  {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              {% endif %}
+
+
+            {% if others %}  
+              <tr>
+                <th colspan ='6' >স্থাবর অন্যান্য</th>
+              </tr>  
+              {% for other in others %}  
+              <tr class="table-secondary">
+                <td class='text-left' style='font-size:smaller'>O-{{ other.id }}</td>
+                <td class='text-left' style='font-size:smaller'>{{ other.owner }}</td>
+                <td class='text-center' style='font-size:smaller'>{{ other.date_of_acquisition }}</td>
+                <td style='font-size:smaller'>{{ other.class_and_location }}</td>
+                
+                <td style='font-size:smaller'>
+                  <a href="{{ other.signature.url }}" download>Signature</a>
+                </td> 
+                <td style='font-size:smaller'>
+                  {% for note in other.others.all %}
+                  <a href="{{ note.notefield.url }}" download>Attechment{{ forloop.counter }}</a> <br>
+                  {% endfor %}
+                </td> 
+                <td>
+                
+                  <a href="{% url 'pamsapp:edit-other' other.id %}"
+                   class='btn btn-outline-info btn-sm'>View</a>
+                {% if other.is_confirm == True %}
+                  <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
+                {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+</div>
+{% endblock %}

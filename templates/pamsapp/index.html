@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="col-lg-10 col-md-8 col-10 mx-auto ">
+  <div class="row mt-5 text-center ">
+    <div class="col-sm-4 offset-1">
+      <div class="card mb-1" style="background-color:rgb(196, 225, 255);">
+        <div class="card-body align-self-center">
+          <h5 class="card-title font-weight-bold">স্থাবর</h5>
+          <p class="card-text">যদি আপনার স্থাবর সম্পদ/সম্পত্তি থেকে থাকে তাহলে Go বাটনে ক্লিক করুন।</p> 
+          <a href="{% url 'pamsapp:immovable-property' %}" class="btn btn-primary px-5">Go</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 offset-1">
+      <div class="card mb-1" style="background-color:rgb(196, 225, 255);">
+        <div class="card-body align-self-center">
+          <h5 class="card-title font-weight-bold">অস্থাবর</h5>
+          <p class="card-text">যদি আপনার অস্থাবর সম্পদ/সম্পত্তি থেকে থাকে তাহলে Go বাটনে ক্লিক করুন।</p> 
+          <a href="{% url 'pamsapp:movable-property' %}" class="btn btn-primary px-5">Go</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+

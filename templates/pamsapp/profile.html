@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="col-lg-10 col-md-8 col-10 mx-auto ">
+  <div class="row mt-5 text-center ">
+    <div class="col-sm-4 ">
+      <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="width: 25rem;">
+        {% if user.profile.image %}
+          <div style="width:100%; text-align:center">
+            <img class="card-img-top border rounded" style="height:250px; width:250px" src="{{ user.profile.image.url }}" alt="Card image cap">
+          </div>
+        {% else %}
+         <div style="width:100%; text-align:center">
+          <img class="card-img-top border rounded" style="height:250px; width:250px" src="{% static 'pams/images/user-default.png' %}" alt="Card image cap">  
+         </div>
+        {% endif %}
+        <div class="card-body text-center">
+            <h5 class="card-title">{{ user.name }}</h5>
+            {% if user.user_type == '1' or user.user_type == '2' %}
+              <h6 class="card-title">(<span class="font-weight-bold text-capitalize">{{user.get_user_type_display}}</span>)</h6> 
+            {% endif %}
+            <h6 class="card-title">{{ user.profile.designation }}</h6>
+          </div>
+          <ul class="list-group list-group-flush">
+            <table class="table">
+              <tbody>
+                <tr>
+
+                  <td></td>
+                  <td class='text-left'>Email</td>
+                  <td class='text-left'>{{ user.email }}</td>
+                </tr>
+                <tr>
+
+                  <td></td>
+                  <td class='text-left'>Phone No</td>
+                  <td class='text-left'>{{ user.phone_no }}</td>
+                </tr>
+                <tr>
+
+                  <td></td>
+                  <td class='text-left'>Gender</td>
+                  <td class='text-left'>{{ user.profile.get_gender_display }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </ul>
+          <div class="card-body">
+            <a href="{% url 'pamsapp:profile-edit' user_id=user.id %}" class="btn btn-block btn-primary">Update</a>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+    
+{% endblock %}
+
+
+

@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<meta charset="utf-8">
+	<title>side menu ber</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'pams/css/sidebar.css' %}">
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+	<section>
+	<input type="checkbox" id="check">
+	<label for="check">
+	<i class="fas fa-bars" id="btn"></i>
+	<i class="fas fa-times" id="cancel"></i>	
+	</label>
+	<div class="sidebar">
+	<header>My App</header>
+	<ul>
+	<li><a href="#"><i class="fas fa-qrcode"></i>dashboard</a></li>
+	<li><a href="#"><i class="fas fa-link"></i>shortcut</a></li>
+	<li><a href="#"><i class="fas fa-stream"></i>overview</a></li>
+	<li><a href="#"><i class="fas fa-sliders-h"></i>services</a></li>
+	<li><a href="#"><i class="far fa-envelope"></i>contact</a></li>	
+	</ul>
+   </div>
+   
+   </section>
+
+</body>
+</html>

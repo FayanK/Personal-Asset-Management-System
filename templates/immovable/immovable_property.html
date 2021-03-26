@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="col-lg-10 col-md-8 col-10 mx-auto ">
+  <div class="row mt-5 text-center">
+    <div class="col-sm-4 ">
+      <div class="card mb-1">
+        <div class="card-body">
+          <h5 class="card-title font-weight-bolder">জমি (কৃষি/অকৃষি)</h5>
+          <p class="card-text">যদি আপনার জমি (কৃষি/অকৃষি) সম্পদ থেকে থাকে তাহলে Go বাটনে ক্লিক করুন এবং ফর্মটি পূরণ করুন।</p>
+          <a href="{% url 'pamsapp:land-add' %}" class="btn btn-primary btn-block">Go</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 ">
+      <div class="card mb-1">
+        <div class="card-body">
+          <h5 class="card-title font-weight-bolder">ইমারত</h5>
+          <p class="card-text">যদি আপনার ইমারত সম্পদ থেকে থাকে তাহলে Go বাটনে ক্লিক করুন এবং ফর্মটি পূরণ করুন।</p>
+          <a href="{% url 'pamsapp:building-add' %}" class="btn btn-primary btn-block">Go</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 ">
+      <div class="card mb-1">
+        <div class="card-body">
+          <h5 class="card-title font-weight-bolder">বসতবাড়ী</h5>
+          <p class="card-text">যদি আপনার বসতবাড়ী সম্পদ থেকে থাকে তাহলে Go বাটনে ক্লিক করুন এবং ফর্মটি পূরণ করুন।</p>
+          <a href="{% url 'pamsapp:homestead-add' %}" class="btn btn-primary btn-block">Go</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 ">
+      <div class="card mb-1">
+        <div class="card-body">
+          <h5 class="card-title font-weight-bolder">ব্যবসা প্রতিষ্ঠান</h5>
+          <p class="card-text">যদি আপনার ব্যবসা প্রতিষ্ঠান সম্পদ থেকে থাকে তাহলে Go বাটনে ক্লিক করুন এবং ফর্মটি পূরণ করুন।</p>
+          <a href="{% url 'pamsapp:businessfirm-add' %}" class="btn btn-primary btn-block">Go</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 ">
+      <div class="card mb-1">
+        <div class="card-body">
+          <h5 class="card-title font-weight-bolder">স্থাবর অন্যান্য</h5>
+          <p class="card-text">যদি আপনার অন্যান্য সম্পদ থেকে থাকে তাহলে Go বাটনে ক্লিক করুন এবং ফর্মটি পূরণ করুন।</p>
+          <a href="{% url 'pamsapp:other-add' %}" class="btn btn-primary btn-block">Go</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

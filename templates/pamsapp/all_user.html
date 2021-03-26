@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <div class = 'col-lg-10 col-md-8 col-12 text-center mx-auto'>
+        <h3 class='text-center alert alert-info'>All User List</h3>
+
+          <div class='float-right'>
+            <form action="" method="get" class="mb-2 ">
+              <td >
+                <input style='width:300px; height: 35px;' class='rounded' name = 'search_value'
+                 type='text' placeholder=' Search by email, name, phone no'>
+              </td>
+              <td >
+                <button class='btn btn-info btn-sm' type="submit">Search</button>
+              </td>
+            </form>
+          </div>
+        <table class="table table-hover shadow-lg table-sm ">
+            <thead>
+              <tr class="bg-primary" style='color:aliceblue'>
+                <th scope="col">Employee Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Designation</th>
+                <th scope="col">Gender</th>
+                <th colspan="2" class="bg-gradient" scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in users %}  
+              <tr class="table-info">
+                <td class='text-left'>{{ user.name }}</td>
+                <td >{{ user.email }}</td>
+                <td>{{ user.phone_no }}</td>
+                <td>{{ user.profile.designation }}</td>
+                <td>{{ user.profile.get_gender_display }}</td>
+                <td>
+                  <a href="{% url 'pamsapp:view-user' user.id %}" class='btn btn-outline-primary btn-sm'>View</a>
+                  {% if request.user.user_type == '2' and user.user_type == '1' %}
+                    <p class='bg-warning py-1 d-inline'>Super Admin</p>
+                  {% else %}
+                  <a href="{% url 'pamsapp:edit-user' user.id %}" class='btn btn-outline-info btn-sm'>Edit</a>
+                  <a href="{% url 'pamsapp:delete-user' user.id %}" class='btn btn-danger btn-sm' 
+                  onclick="return confirm('Are you sure? Do You want to delete this user?')">Delete</a>
+                  {%  endif %}
+                </td>
+              </tr>
+              {% empty %}
+                <tr>
+                  <td colspan='7' class="text-center alert alert-danger">Query doesn't exist!</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+      </table>
+    </div>
+
+{% endblock %}
+
+
+

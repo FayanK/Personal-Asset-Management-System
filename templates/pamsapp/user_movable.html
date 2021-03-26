@@ -1,0 +1,318 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class = 'col-lg-10 col-md-8 col-10 mx-auto'>
+  <h3 class='alert alert-light text-center'>Employee Profile</h3>
+
+  <div class="card mb-3 shadow-lg " style="max-width: 540px;">
+    <div class="row no-gutters ">
+      <div class="col-lg-4 col-md-4 col-10 mx-auto" >
+        {% if e_user.profile.image %}
+        <div class='mt-3' style="width:100%; text-align:center">
+          <img src="{{ e_user.profile.image.url }}" class="card-img" alt="profile image">
+        </div>
+        {% else %}
+        <div class='mt-3' style="width:100%; text-align:center">
+          <img src="{% static 'pams/images/user-default.png' %}" class="card-img" alt="profile image">
+        </div>
+        {% endif %}
+      </div>
+      <div class="col-lg-6 col-md-8 col-10">
+        <div class="card-body">
+          <h5 class="card-title">{{ e_user.name }}
+            {% if e_user.user_type == '1' or e_user.user_type == '2' %}
+              <span style="font-size: 18px;" class="font-weight-bold text-capitalize">({{e_user.get_user_type_display}})</span>
+            {% endif %}
+          </h5>
+          <p class="card-text">{{ e_user.profile.designation }}</p>
+          <p class="card-text">{{ e_user.email }}</p>
+          <p class="card-text">{{ e_user.phone_no }}</p>
+          <p class="card-text">{{ e_user.profile.get_gender_display }}</p>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class='alert alert-light text-center'>Employee Assets</h3>
+  <div class='row'>
+    <div class="col-lg-12 col-md-12 col-12 text-center">
+        <a href="{% url 'pamsapp:view-user-all-assets' user_id=e_user.id %}">All Assets</a>
+      <a class='mr-3 ml-3' href="{% url 'pamsapp:view-user-immovable' user_id=e_user.id %}">Immovable Assets</a>
+      <a href="{% url 'pamsapp:view-user-movable' user_id=e_user.id %}">movable Assets</a>
+    </div>
+  </div>
+
+    <div class="row mt-5 text-center ">
+      <div class = 'col-lg-10 col-md-10 col-12 text-center mx-auto'>
+          <table class="table table-hover shadow-lg table-sm table-bordered">
+              <thead>
+                <tr class="bg-info" style='color:aliceblue'>
+                  <th scope="col" style='font-size:smaller'>Form ID</th>
+                  <th scope="col" style='font-size:smaller'>যার নামে অর্জিত</th>
+                  <th scope="col" style='font-size:smaller'>সম্পদ অর্জনের তারিখ</th>
+                  <th scope="col" style='font-size:smaller'>সম্পদ/সম্পত্তির প্রকৃতি ও অবস্থান</th>
+                  <th scope="col" style='font-size:smaller'>সাক্ষর</th>
+                  <th scope="col" style='font-size:smaller'>নমুনা পত্র</th>
+                  <th colspan="2" class="bg-gradient" scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                {% if ornaments %}  
+                <tr>
+                  <th colspan ='6' >অলংকারাদি</th>
+                </tr>  
+                {% for ornament in ornaments %}  
+                <tr class="table-secondary">
+                  <td class='text-left' style='font-size:smaller'>Ot-{{ ornament.id }}</td>
+                  <td class='text-left' style='font-size:smaller'>{{ ornament.owner }}</td>
+                  <td class='text-center' style='font-size:smaller'>{{ ornament.date_of_acquisition }}</td>
+                  <td style='font-size:smaller'>{{ ornament.class_and_location }}</td>
+                  
+                  <td style='font-size:smaller'>
+                    <a href="{{ ornament.signature.url }}" download>Signature</a>
+                  </td> 
+                  <td style='font-size:smaller'>
+                    {% for note in ornament.ornaments.all %}
+                    <a href="{{ note.notefield.url }}" download>Attechment{{ forloop.counter }}</a> <br>
+                    {% endfor %}
+                  </td> 
+                  <td>
+                  
+                    <a href="{% url 'pamsapp:edit-ornaments' ornament.id %}"
+                     class='btn btn-outline-info btn-sm'>View</a>
+                  {% if ornament.is_confirm == True %}
+                    <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
+                  {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              {% endif %}
+  
+              {% if stocks %}  
+                <tr>
+                  <th colspan ='6' >স্টকস</th>
+                </tr>  
+                {% for stock in stocks %}  
+                <tr class="table-secondary">
+                  <td class='text-left' style='font-size:smaller'>St-{{ stock.id }}</td>
+                  <td class='text-left' style='font-size:smaller'>{{ stock.owner }}</td>
+                  <td class='text-center' style='font-size:smaller'>{{ stock.date_of_acquisition }}</td>
+                  <td style='font-size:smaller'>{{ stock.class_and_location }}</td>
+                  
+                  <td style='font-size:smaller'>
+                    <a href="{{ stock.signature.url }}" download>Signature</a>
+                  </td> 
+                  <td style='font-size:smaller'>
+                    {% for note in stock.stocks.all %}
+                    <a href="{{ note.notefield.url }}" download>Attechment{{ forloop.counter }}</a> <br>
+                    {% endfor %}
+                  </td> 
+                  <td>
+                  
+                    <a href="{% url 'pamsapp:edit-stocks' stock.id %}" 
+                    class='btn btn-outline-info btn-sm'>View</a>
+                  {% if stock.is_confirm == True %}
+                    <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
+                  {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              {% endif %}
+  
+              {% if shares %}  
+                <tr>
+                  <th colspan ='6' >শেয়ার</th>
+                </tr>  
+                {% for share in shares %}  
+                <tr class="table-secondary">
+                  <td class='text-left' style='font-size:smaller'>Sh-{{ share.id }}</td>
+                  <td class='text-left' style='font-size:smaller'>{{ share.owner }}</td>
+                  <td class='text-center' style='font-size:smaller'>{{ share.date_of_acquisition }}</td>
+                  <td style='font-size:smaller'>{{ share.class_and_location }}</td>
+                
+                  <td style='font-size:smaller'>
+                    <a href="{{ share.signature.url }}" download>Signature</a>
+                  </td> 
+                  <td style='font-size:smaller'>
+                    {% for note in share.shares.all %}
+                    <a href="{{ note.notefield.url }}" download>Attechment{{ forloop.counter }}</a> <br>
+                    {% endfor %}
+                  </td> 
+                  <td>
+                  
+                    <a href="{% url 'pamsapp:edit-shares' share.id %}"
+                     class='btn btn-outline-info btn-sm'>View</a>
+                  {% if share.is_confirm == True %}
+                    <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
+                  {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              {% endif %}
+  
+              {% if insurences %}  
+                <tr>
+                  <th colspan ='6' >বীমা</th>
+                </tr>  
+                {% for insurence in insurences %}  
+                <tr class="table-secondary">
+                  <td class='text-left' style='font-size:smaller'>Ie-{{ insurence.id }}</td>
+                  <td class='text-left' style='font-size:smaller'>{{ insurence.owner }}</td>
+                  <td class='text-center' style='font-size:smaller'>{{ insurence.date_of_acquisition }}</td>
+                  <td style='font-size:smaller'>{{ insurence.class_and_location }}</td>
+                  
+                  <td style='font-size:smaller'>
+                    <a href="{{ insurence.signature.url }}" download>Signature</a>
+                  </td> 
+                  <td style='font-size:smaller'>
+                    {% for note in insurence.insurances.all %}
+                    <a href="{{ note.notefield.url }}" download>Attechment{{ forloop.counter }}</a> <br>
+                    {% endfor %}
+                  </td> 
+                  <td>
+                  
+                    <a href="{% url 'pamsapp:edit-incurances' insurence.id %}" 
+                    class='btn btn-outline-info btn-sm'>View</a>
+                  {% if insurence.is_confirm == True %}
+                    <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
+                  {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              {% endif %}
+  
+              {% if cash_or_bankvalues %}  
+                <tr>
+                  <th colspan ='6' >নগদ / ব্যাংকে গচ্ছিত অর্থ</th>
+                </tr>  
+                {% for cash_or_bankvalue in cash_or_bankvalues %}  
+                <tr class="table-secondary">
+                  <td class='text-left' style='font-size:smaller'>Cb-{{ cash_or_bankvalue.id }}</td>
+                  <td class='text-left' style='font-size:smaller'>{{ cash_or_bankvalue.owner }}</td>
+                  <td class='text-center' style='font-size:smaller'>{{ cash_or_bankvalue.date_of_acquisition }}</td>
+                  <td style='font-size:smaller'>{{ cash_or_bankvalue.class_and_location }}</td>
+                  
+                  <td style='font-size:smaller'>
+                    <a href="{{ cash_or_bankvalue.signature.url }}" download>Signature</a>
+                  </td> 
+                  <td style='font-size:smaller'>
+                    {% for note in cash_or_bankvalue.Cash_or_bankvalues.all %}
+                    <a href="{{ note.notefield.url }}" download>Attechment{{ forloop.counter }}</a> <br>
+                    {% endfor %}
+                  </td> 
+                  <td>
+                  
+                    <a href="{% url 'pamsapp:edit-cash-or-bankvalue' cash_or_bankvalue.id %}" 
+                    class='btn btn-outline-info btn-sm'>View</a>
+                  {% if cash_or_bankvalue.is_confirm == True %}
+                    <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
+                  {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              {% endif %}
+  
+              {% if vehicles %}  
+              <tr>
+                <th colspan ='6' >মোটর ভেহীকলস</th>
+              </tr>  
+              {% for vehicle in vehicles %}  
+              <tr class="table-secondary">
+                <td class='text-left' style='font-size:smaller'>V-{{ vehicle.id }}</td>
+                <td class='text-left' style='font-size:smaller'>{{ vehicle.owner }}</td>
+                <td class='text-center' style='font-size:smaller'>{{ vehicle.date_of_acquisition }}</td>
+                <td style='font-size:smaller'>{{ vehicle.class_and_location }}</td>
+                
+                <td style='font-size:smaller'>
+                  <a href="{{ vehicle.signature.url }}" download>Signature</a>
+                </td> 
+                <td style='font-size:smaller'>
+                  {% for note in vehicle.vehicles.all %}
+                  <a href="{{ note.notefield.url }}" download>Attechment{{ forloop.counter }}</a> <br>
+                  {% endfor %}
+                </td> 
+                <td>
+                
+                  <a href="{% url 'pamsapp:edit-vehicles' vehicle.id %}" 
+                  class='btn btn-outline-info btn-sm'>View</a>
+                {% if vehicle.is_confirm == True %}
+                  <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
+                {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            {% endif %}
+  
+            {% if electronics %}  
+              <tr>
+                <th colspan ='6' >ইলেক্ট্রনিক্স জিনিসপত্র</th>
+              </tr>  
+              {% for electronic in electronics %}  
+              <tr class="table-secondary">
+                <td class='text-left' style='font-size:smaller'>E-{{ electronic.id }}</td>
+                <td class='text-left' style='font-size:smaller'>{{ electronic.owner }}</td>
+                <td class='text-center' style='font-size:smaller'>{{ electronic.date_of_acquisition }}</td>
+                <td style='font-size:smaller'>{{ electronic.class_and_location }}</td>
+                
+                <td style='font-size:smaller'>
+                  <a href="{{ electronic.signature.url }}" download>Signature</a>
+                </td> 
+                <td style='font-size:smaller'>
+                  {% for note in electronic.electronics.all %}
+                  <a href="{{ note.notefield.url }}" download>Attechment{{ forloop.counter }}</a> <br>
+                  {% endfor %}
+                </td> 
+                <td>
+                
+                  <a href="{% url 'pamsapp:edit-electronics' electronic.id %}" 
+                  class='btn btn-outline-info btn-sm'>View</a>
+                {% if electronic.is_confirm == True %}
+                 <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
+                {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            {% endif %}
+  
+            {% if others_m %}  
+              <tr>
+                <th colspan ='6' >অস্থাবর অন্যান্য</th>
+              </tr>  
+              {% for other_m in others_m %}  
+              <tr class="table-secondary">
+                <td class='text-left' style='font-size:smaller'>Ot-{{ other_m.id }}</td>
+                <td class='text-left' style='font-size:smaller'>{{ other_m.owner }}</td>
+                <td class='text-center' style='font-size:smaller'>{{ other_m.date_of_acquisition }}</td>
+                <td style='font-size:smaller'>{{ other_m.class_and_location }}</td>
+                
+                <td style='font-size:smaller'>
+                  <a href="{{ other_m.signature.url }}" download>Signature</a>
+                </td> 
+                <td style='font-size:smaller'>
+                  {% for note in other_m.others_m.all %}
+                  <a href="{{ note.notefield.url }}" download>Attechment{{ forloop.counter }}</a> <br>
+                  {% endfor %}
+                </td> 
+                <td>
+                
+                  <a href="{% url 'pamsapp:edit-other-m' other_m.id %}" 
+                  class='btn btn-outline-info btn-sm'>View</a>
+                {% if other_m.is_confirm == True %}
+                <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
+                {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+</div>
+{% endblock %}

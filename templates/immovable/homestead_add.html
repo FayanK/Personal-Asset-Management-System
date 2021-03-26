@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class = 'col-lg-6 col-md-8 col-10  shadow-lg mx-auto'>
+  <h3 class='alert alert-light text-center'>বসতবাড়ী</h3>
+  <div class='pt-2 px-2' style = 'width:100%;'>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+          <div class="text-left">
+            <label  class="font-weight-bold">সম্পদ অর্জনের তারিখ</label>
+          </div>
+          {{form.date_of_acquisition}}
+       </div>
+       <div class="form-group">
+          <div class="text-left">
+            <label  class="font-weight-bold">যার নামে অর্জিত</label>
+          </div>
+          {{form.owner}}
+       </div>
+       <div class="form-group">
+          <div class="text-left">
+            <label  class="font-weight-bold">সম্পদ/সম্পত্তির প্রকৃতি ও অবস্থান</label>
+          </div>
+          {{form.class_and_location}}
+       </div>
+       <div class="form-group">
+          <div class="text-left">
+            <label  class="font-weight-bold">সম্পত্তির বিবরণ</label>
+          </div>
+          {{form.details}}
+       </div>
+       <div class="form-group">
+        <div class="text-left">
+          <label  class="font-weight-bold">কিভাবে অর্জিত ও অর্জনের তারিখে মূল্য</label>
+        </div>
+        {{form.how_acquired_and_value}}
+       </div> 
+       <div class="form-group">
+        <div class="text-left">
+          <label  class="font-weight-bold">ক্রয় হলে অর্থের উৎস</label>
+        </div>
+        {{form.source_of_money}}
+       </div> 
+       <div class="form-group">
+        <div class="text-left">
+          <label  class="font-weight-bold">মতামত</label>
+        </div>
+        {{form.opinon}}
+       </div> 
+
+       <div class="form-group">
+        <div class="text-left">
+          <label  class="font-weight-bold">সাক্ষর</label>
+          <p style='font-size:smaller'>অবশ্যই ৩০০ × ৩০০ সাইজের হতে হবে।</p>
+        </div>
+        {{form.signature}}
+       </div>
+
+       <div class="form-group">
+        <div class="text-left">
+          <label  class="font-weight-bold">প্রমাণ কাগজপত্র যুক্ত করুন</label>
+        </div>
+        <div id="docs" class='text-left'>
+          <input  type="file" name="file[]" required><br><br>
+        </div>
+          <input class='float-left btn-info p-1' id="add_document"
+           type="button" name="add_document" value="Add more document"> <br> <br>
+       </div> 
+
+       <div class="form-group">
+        <div class="text-left">
+          <input type="checkbox"  name="vehicle1" required>
+          <label for="vehicle1" class=' d-inline' style="font-size: smaller;">আমি আরও ঘোষনা করছি যে,
+             উপরোক্ত সম্পদ/সম্পত্তির বিবরণী আমার জ্ঞান ও বিশ্বাস মতে সত্য। 
+            এমন কোন সম্পদ/ সম্পত্তির বিবরন এ হিসাব গোপন করা হয়নি, 
+            যাতে আমার নিজের অথবা আমার পরিবারের সদস্যগনের মাধ্যমে আমার স্বার্থ নিহিত আছে ।</label><br>
+        </div>
+       </div>     
+      <button type = 'submit' class = 'btn btn-success btn-block'>Submit</button>     
+  </form>
+  <script>
+    document.getElementById("add_document").onclick = function (ev){
+      var doc = document.getElementById("docs");
+
+      var newInput = document.createElement("input");
+      newInput.type = "file";
+      newInput.name = "file[]";
+
+      var br = document.createElement("br");
+      var br1 = document.createElement("br");
+
+      doc.appendChild(newInput);
+      doc.appendChild(br);
+      doc.appendChild(br1);
+    }
+  </script>
+  </div>
+</div>
+{% endblock %}

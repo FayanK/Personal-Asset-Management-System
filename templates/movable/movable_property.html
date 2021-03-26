@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="col-lg-10 col-md-8 col-10 mx-auto ">
+  <div class="row mt-5 text-center">
+    <div class="col-sm-4 ">
+      <div class="card mb-1">
+        <div class="card-body">
+          <h5 class="card-title font-weight-bolder">অলংকারাদি</h5>
+          <p class="card-text">যদি আপনার অলংকারাদি সম্পদ থেকে থাকে তাহলে Go বাটনে ক্লিক করুন এবং ফর্মটি পূরণ করুন।</p>
+          <a href="{% url 'pamsapp:ornaments-add' %}" class="btn btn-primary btn-block">Go</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 ">
+      <div class="card mb-1">
+        <div class="card-body">
+          <h5 class="card-title font-weight-bolder">স্টকস</h5>
+          <p class="card-text">যদি আপনার স্টকস সম্পদ থেকে থাকে তাহলে Go বাটনে ক্লিক করুন এবং ফর্মটি পূরণ করুন।</p>
+          <a href="{% url 'pamsapp:stocks-add' %}" class="btn btn-primary btn-block">Go</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 ">
+      <div class="card mb-1">
+        <div class="card-body">
+          <h5 class="card-title font-weight-bolder">শেয়ার</h5>
+          <p class="card-text">যদি আপনার শেয়ার সম্পদ থেকে থাকে তাহলে Go বাটনে ক্লিক করুন এবং ফর্মটি পূরণ করুন।</p>
+          <a href="{% url 'pamsapp:shares-add' %}" class="btn btn-primary btn-block">Go</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 ">
+      <div class="card mb-1">
+        <div class="card-body">
+          <h5 class="card-title font-weight-bolder">বীমা</h5>
+          <p class="card-text">যদি আপনার বীমা সম্পদ থেকে থাকে তাহলে Go বাটনে ক্লিক করুন এবং ফর্মটি পূরণ করুন।</p>
+          <a href="{% url 'pamsapp:incurances-add' %}" class="btn btn-primary btn-block">Go</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 ">
+        <div class="card mb-1">
+          <div class="card-body">
+            <h5 class="card-title font-weight-bolder">নগদ / ব্যাংকে গচ্ছিত অর্থ</h5>
+            <p class="card-text">যদি আপনার নগদ / ব্যাংকে গচ্ছিত অর্থ সম্পদ থেকে থাকে তাহলে Go বাটনে ক্লিক করুন এবং ফর্মটি পূরণ করুন।</p>
+            <a href="{% url 'pamsapp:cash-or-bankvalue-add' %}" class="btn btn-primary btn-block">Go</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 ">
+        <div class="card mb-1">
+          <div class="card-body">
+            <h5 class="card-title font-weight-bolder">মোটর ভেহীকলস</h5>
+            <p class="card-text">যদি আপনার মোটর ভেহীকলস সম্পদ থেকে থাকে তাহলে Go বাটনে ক্লিক করুন এবং ফর্মটি পূরণ করুন।</p>
+            <a href="{% url 'pamsapp:vehicles-add' %}" class="btn btn-primary btn-block">Go</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 ">
+        <div class="card mb-1">
+          <div class="card-body">
+            <h5 class="card-title font-weight-bolder">ইলেক্ট্রনিক্স জিনিসপত্র</h5>
+            <p class="card-text">যদি আপনার ইলেক্ট্রনিক্স জিনিসপত্র (কম্পিউটার, টেলিভিশন, এয়ারকুলার, রেফ্রিজারেটর, ওভেন ইত্যাদি) সম্পদ থেকে থাকে তাহলে Go বাটনে ক্লিক করুন এবং ফর্মটি পূরণ করুন।</p>
+            <a href="{% url 'pamsapp:electronics-add' %}" class="btn btn-primary btn-block">Go</a>
+          </div>
+        </div>
+      </div>
+    <div class="col-sm-4 ">
+      <div class="card mb-1">
+        <div class="card-body">
+          <h5 class="card-title font-weight-bolder">অস্থাবর অন্যান্য</h5>
+          <p class="card-text">যদি আপনার অন্যান্য সম্পদ থেকে থাকে তাহলে Go বাটনে ক্লিক করুন এবং ফর্মটি পূরণ করুন।</p>
+          <a href="{% url 'pamsapp:other-m-add' %}" class="btn btn-primary btn-block">Go</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

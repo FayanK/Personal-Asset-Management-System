@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-lg-10 col-md-8 col-10 mx-auto ">
+    <div class="row mt-5 text-center ">
+      <div class="col-sm-4 ">
+        <div class="card py-3 shadow-lg p-3 mb-5 bg-white rounded" style="width: 20rem;">
+            <form action="" method="post" enctype = 'multipart/form-data'>
+                {% csrf_token %}
+                <!-- {% if user.user_type == '2' and e_user.user_type == '1' %}
+                    <div class="form-group">
+                        <h3 class="font-weight-bold alert alert-danger">Access Bocked</h3>
+                    </div>
+                    <a class='btn btn-primary' href="{% url 'pamsapp:all-user' %}">Back</a>
+                {% else %} -->
+                    <div class="form-group">
+                        <label class="font-weight-bold">Employee Name</label>
+                        {{ user_form.name }}
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Phone Number</label>
+                        {{ user_form.phone_no }}
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Select Gender</label>
+                        {{ profile_form.gender }}
+                    </div>
+                    {% if user.user_type == '1' %}
+                        <div class="form-group">
+                            <label class="font-weight-bold">Select User Type</label>
+                            {{user_form.user_type}}
+                        </div>
+                    {%  endif %}
+                    <div class="form-group">
+                        <label class="font-weight-bold">Designation</label>
+                        {{ profile_form.designation }}
+                    </div>
+                    <div class="form-group">
+                        <label  class="font-weight-bold">Image</label>
+                        {{ profile_form.image }}
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Set Active</label>
+                        {{user_form.is_active}}
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Set Admin</label>
+                        {{user_form.is_admin}}
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Set Stuff</label>
+                        {{user_form.is_staff}}
+                    </div>
+                    <button type = 'submit' class = 'btn btn-success btn-block'>Update</button>   
+                {% endif %}    
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,10 @@
+{% autoescape off %}
+Hi {{ name }} 
+
+Welcome to Bangladesh Computer Council.
+Please click on the link below to confirm your email.
+http://{{ domain }}{% url 'accounts:email_activation' activation_key=activation_key %}
+
+Best,
+BCC Team
+{% endautoescape %}

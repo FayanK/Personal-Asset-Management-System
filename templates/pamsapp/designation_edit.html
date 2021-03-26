@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="col-lg-10 col-md-8 col-10 mx-auto ">
+  <h3 class='text-center font-weight-bolder mt-5'>Designations</h3>
+  <div class="row mt-5 text-center ">
+    <div class="col-lg-4 col-md-10 col-10 offset-1 shadow-lg mb-3 pb-3">
+        <h4 class='text-center bg-info py-1 mt-3 mb-5'>Edit Designation Name</h4>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="font-weight-bold">Designation</label>
+                {{ form.name }}
+             </div>
+            <input name="" id="" class="btn btn-sm btn-success px-lg-5" type="submit" value="Update">
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class = 'col-lg-6 col-md-8 col-10  shadow-lg mx-auto'>
+  <h3 class='alert alert-light'>স্থাবর অন্যান্য</h3>
+  <div class='py-2 px-2' style = 'width:100%;'>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+          <div class="text-left">
+            <label  class="font-weight-bold">সম্পদ অর্জনের তারিখ</label>
+          </div>
+          {{form.date_of_acquisition}}
+       </div>
+       <div class="form-group">
+          <div class="text-left">
+            <label  class="font-weight-bold">যার নামে অর্জিত</label>
+          </div>
+          {{form.owner}}
+       </div>
+       <div class="form-group">
+          <div class="text-left">
+            <label  class="font-weight-bold">সম্পদ/ সম্পত্তির প্রকৃতি ও অবস্থান</label>
+          </div>
+          {{form.class_and_location}}
+       </div>
+       <div class="form-group">
+          <div class="text-left">
+            <label  class="font-weight-bold">সম্পত্তির বিবরণ</label>
+          </div>
+          {{form.details}}
+       </div>
+       <div class="form-group">
+        <div class="text-left">
+          <label  class="font-weight-bold">কিভাবে অর্জিত ও অর্জনের তারিখে মূল্য</label>
+        </div>
+        {{form.how_acquired_and_value}}
+       </div> 
+       <div class="form-group">
+        <div class="text-left">
+          <label  class="font-weight-bold">ক্রয় হলে অর্থের উৎস</label>
+        </div>
+        {{form.source_of_money}}
+       </div> 
+       <div class="form-group">
+        <div class="text-left">
+          <label  class="font-weight-bold">মতামত</label>
+        </div>
+        {{form.opinon}}
+       </div> 
+
+       <div class="form-group">
+        <div class="text-left">
+          <label  class="font-weight-bold">সাক্ষর</label>
+          <p style='font-size:smaller'>অবশ্যই ৩০০ × ৩০০ সাইজের হতে হবে।</p>
+        </div>
+        <div style="width:100%; text-align:center">
+          <img style='width: 200px; height: 100px'  src="{{ other.signature.url }}" alt="সাক্ষর">
+        </div>
+        {{form.signature}}
+       </div>
+
+       <div>
+        <label  class="font-weight-bold">প্রমাণ পত্র সমূহ</label>
+           {% for note in other.others.all %}
+           <a href="{{ note.notefield.url }}" download>Attechmet {{ forloop.counter }}</a>
+           {% endfor %}
+       </div>
+
+
+       <div class="form-group">
+        <div class="text-center mt-3">
+          <label  class="font-weight-bold d-inline">Confirm</label>
+        </div>
+        {{form.is_confirm}}
+       </div>
+      
+      <div style='width:100%; text-align: center;'>
+        <button type = 'submit' class = 'btn btn-success text-center mr-2'>Submit</button>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger ml-2" data-toggle="modal" data-target="#exampleModal">
+          Delete
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-danger" id="exampleModalLabel">Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <h3>Are you sure?</h3>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <a href="{% url 'pamsapp:delete-other-admin' other_id=other.id %}" 
+                    class='btn btn-primary text-center ml-2'>Yes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>     
+  </form>
+  </div>
+</div>
+{% endblock %}

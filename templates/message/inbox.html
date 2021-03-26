@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block style_block %}
+<style>
+  .online_custom, .offline_custom{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .online_custom{
+    background: #00c292;
+  }
+
+  .offline_custom{
+    background: #ffb463;
+  }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="email-wrapper">
+	{% if messages %}
+	{% for message in messages %}
+	<div {% if message.tags %} class="alert alert-{{ message.tags }} {% endif %}" role="alert">
+		{{ message }}
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	</div>
+	{% endfor %}
+	{% endif %}
+	<div class="row align-items-stretch">
+		<div class="mail-sidebar d-none d-lg-block col-md-4 bg-white ">
+			<div class="menu-bar">
+				{% with request.resolver_match.url_name as url_name %}
+				<ul class="menu-items">
+					<li class="compose mb-3"><a href="{% url 'Message:write-new-message' %}" 
+						class="btn btn-primary btn-block">+ Message</a>
+					</li>
+					<li class="{% if url_name == 'inbox' %}active{% endif %}">
+						<a href="{% url 'Message:inbox' %}"><i class="mdi mdi-email-outline"></i> Inbox</a>
+						<span class="badge badge-pill badge-success">{{ total_unread_msgs }}</span>
+					</li>
+					<li class="{% if url_name == 'all-sent-msgs' %}active{% endif %}">
+						<a href="{% url 'Message:all-sent-msgs' %}"><i class="mdi mdi-share"></i> Sent</a>
+					</li>
+					<li class="{% if url_name == 'message-draft' %}active{% endif %}">
+						<a href="{% url 'Message:message-draft' %}">
+							<i class="mdi mdi-file-outline"></i> Draft
+						</a>
+							<span class="badge badge-pill badge-warning">{{ total_draft_msgs }}</span>
+					</li>
+					<li class="{% if url_name == 'trash_msgs' %}active{% endif %}">
+						<a href="{% url 'Message:trash_msgs' %}"><i class="mdi mdi-delete"></i> Trash</a>
+					</li>
+				</ul>
+				{% endwith %}
+				<div class="wrapper">
+					<div class="online-status d-flex justify-content-between align-items-center">
+						<p class="chat">Chats</p> <span class="status offline online"></span></div>
+				</div>
+				<ul class="profile-list">
+					{% for on_user in active_users %}
+					{% if on_user.profile.image %}
+					{% if request.user.email == on_user.email %}{% else %}<a href="{% url 'Message:send-message' user_id=on_user.pk %}" class="badge badge-info d-inline-block float-right mt-4 text-decoration-none">Message <i class="icon-cursor menu-icon"></i></a>{% endif %}
+					<li class="profile-list-item"> <a href="#"> <span class="pro-pic">
+						<img style="width:30px; height:30px" src="{{ on_user.profile.image.url }}" alt="{{ on_user.email }}" >
+					</span><div class="user"><p class="u-name">{% if on_user.profile.username %}{{ on_user.profile.username }}{% else %}{{ on_user.email }}{% endif %}</p><p class="u-designation">{{ on_user.groups.all.0.name }} {% if on_user.profile.is_online %} <span class="online_custom"></span>{% else %}<span class="offline_custom"></span> {% endif %}</p></div></a></li>
+					
+					{% else %}
+					{% if request.user.email == on_user.email %}{% else %}<a href="{% url 'Message:send-message' user_id=on_user.pk %}" class="badge badge-info d-inline-block float-right mt-4 text-decoration-none">Message <i class="icon-cursor menu-icon"></i></a>{% endif %}
+					<li class="profile-list-item"> <a href="#"> <span class="pro-pic"><img style="width:30px; height:30px" src="{% static 'p_default_image/profile.jpg' %}" alt="Profile image"></span><div class="user"><p class="u-name">{% if on_user.profile.username %}{{ on_user.profile.username }}{% else %}{{ on_user.email }}{% endif %}</p><p class="u-designation">{{ on_user.groups.all.0.name }} {% if on_user.profile.is_online %} <span class="online_custom"></span>{% else %}<span class="offline_custom"></span>{% endif %}</p></div> </a></li>
+					{% endif %}
+					{% empty %}
+					<li class="profile-list-item">No user available !</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div class="mail-list-container col-md-8 pt-4 pb-4 border-right bg-white">
+			<div class="border-bottom pb-4 mb-3 px-3">
+				<h3>Inbox messages</h3>
+			</div>
+			{% for msg in msgs %}
+			<a href="{% url 'Message:message-detail' msg_id=msg.pk %}">
+				<div class="mail-list">
+					<div class="content">
+						<p class="sender-name">
+							From : {% if msg.sender.profile.username %}
+							{{ msg.sender.profile.username }}
+							{% else %}
+							{{ msg.sender }}
+							{% endif %} ‍{% if msg.new_msg_active %}<span class="badge badge-danger ml-4" style="background:red; font-siz:14px; letter-spacing:3px;">New</span>{% endif %}</p>
+						<p class="message_text">Message : {{ msg.message }}</p>
+					</div>
+				</div>
+			</a>
+			{% empty %}
+			<div class="mail-list">
+				<div class="content">
+					<p class="sender-name">No message available !</p>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

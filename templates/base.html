@@ -1,0 +1,311 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" href="{% static 'pams/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'pams/css/base.css' %}">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Personal Asset Management System</title>
+
+    <style>
+      .not {
+        right: 0px;
+        
+        height: 50px;
+        padding: 10px;
+        color:rgb(246, 246, 248)
+      }
+      .not a {
+        background-color: #ABDDE5;
+        color:rgb(20, 20, 20);
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 5px;
+      }
+      .not a:hover{
+        background-color: rgb(172, 176, 231);
+        color:rgb(250, 249, 249)
+      }
+      .mes {
+        right: 0px;
+        height: 50px;
+        padding: 10px;
+        color:rgb(12, 12, 15)
+      }
+      .mes a {
+        background-color: #ABDDE5;
+        color:rgb(20, 20, 20);
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 5px;
+      }
+      .mes a:hover{
+        background-color: rgb(172, 176, 231);
+        color:rgb(250, 249, 249)
+      }
+      .profile a:hover{
+        color:rgb(255, 127, 22)
+      }
+      /* .chatroom{
+        display: flex;
+        flex-direction: column;
+      }
+      .chatroom .header{
+        padding: 10px, 5%;
+        font-size: 20px;
+        background:rgb(139, 5, 128);
+        color: rgb(247, 236, 236);
+      }
+      .messages-area{
+        height:500px;
+        overflow-y: auto;
+        padding: 4%;
+        background:#CCD1D1;
+        color:#999;
+        padding-bottom: 10px;
+
+        overflow: scroll;
+      }
+      .input-area{
+        display: flex;
+        flex-direction: row;
+        justify-content:center;
+      }
+      #message-input{
+        padding:20px;
+        width: 100%;
+      }
+      #send-btn{
+        padding:20px 40px;
+        background:rgb(15, 179, 201);
+      }
+      .message.left{
+        text-align:left;
+        color:rgb(19, 6, 6);
+      }
+      .message.right{
+        text-align:right;
+        color:rgb(17, 11, 11);
+      }
+      .message .content{
+        background:#edffff;
+        padding:5px 5px;
+        border-radius:10px;
+        max-width:80%;
+        display: inline-block;
+      } */
+      .messages-area {
+            height: 500px;
+            min-height: 70vh;
+            overflow-y: auto;
+            padding: 4%;
+            background: #555;
+            color: #999;
+            padding-bottom: 10px;
+        }
+
+        .input-area {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        #message-input {
+            padding: 20px;
+            width: 100%;
+        }
+
+        #send-btn {
+            padding: 20px 40px;
+            background: gold;
+        }
+        .message.left{
+            text-align: left;
+            color: #aaa;
+        }
+        .message.right {
+            text-align: right;
+            color: #ccc;
+        }
+        .message .content{
+            background: #444;
+            padding: 5px 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            display: inline-block;
+        }
+    </style>
+    	{% block style_block %}
+	
+      {% endblock %}
+  </head>
+  <body>
+   <!-- navbar -->
+   <nav class="navbar navbar-expand-lg navbar-light sticky-top"
+    style="background-color: #e3f2fd">
+    <a class="navbar-brand" href="{% url 'pamsapp:home' %}"><img src="{% static 'pams/images/bcc.jpg' %}" alt="logo" 
+      style="height: 35px; width: 35px;"><span class="ml-2" style="font-size: 15px;">Personal Asset Management System</span></a>
+    <button class="navbar-toggler bg-primary text-center" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse text-center my-nav" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+      </ul>
+      <ul class="navbar-nav  my-2 my-lg-0 ">
+        {% if not user.is_authenticated %}  
+          <li class="nav-item active">
+            <a class="nav-link text-black font-weight-bold" href="#">Login </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link text-black font-weight-bold" href="#">Signup </a>
+          </li>
+        {% else %}
+
+        <div class="mes rounded rounded-end ">
+          <a href="{% url 'pamsapp:assets-list-pending' %}"  style="text-decoration:none">
+            <i style="font-size:22px; color:rgb(0, 0, 0)" class="fa ">&#xf075;</i>
+            <span style='font-size:15px'>message</span>
+            <!-- {% if notification %}
+            <span class="badge badge-danger" style='font-size:15px'>{{ notification }}</span>
+            {% endif %} -->
+          </a>
+        </div>
+        {% if user.user_type == '1' or user.user_type == '2' %}
+        <div class="not rounded rounded-end ">
+          <a href="{% url 'pamsapp:assets-list-pending' %}"  style="text-decoration:none">
+            <i style="font-size:22px; color:rgb(0, 0, 0)" class="fa">&#xf0f3;</i>
+            <span style='font-size:15px'>notification</span>
+            {% if notification %}
+            <span class="badge badge-danger" style='font-size:15px'>{{ notification }}</span>
+            {% endif %}
+          </a>
+        </div>
+        {% endif %}
+        
+          {% if profile.image %}
+          <div class="dropdown show mx-1 pl-1 rounded profile" 
+          style='background-color:  #6b0b91; border-radius: 15%;'>
+            <a class="btn dropdown-toggle" href="{% url 'pamsapp:profile' %}" role="button"
+             id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <img src="{{ user.profile.image.url }}" class="rounded-circle" alt="logo" 
+                style="height: 35px; width: 35px;">
+                <span class="ml-2" style="font-size: medium; color:seashell">Profile</span>
+            </a>
+            <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuLink" 
+            style='background-color: rgb(225, 221, 247); font-size: smaller;'>
+              <a class="dropdown-item" href="{% url 'pamsapp:profile-show' %}">View</a>
+              <a class="dropdown-item" href="{% url 'pamsapp:profile' %}">Update Profile</a>
+              <a class="dropdown-item" href="{% url 'accounts:change-pass' %}">Change Password</a>
+            </div>
+          </div>
+          {% else %}
+          <div class="dropdown show mx-1 pl-1 rounded profile" 
+          style='background-color: #6b0b91; border-radius: 15%;'>
+            <a class="btn dropdown-toggle" href="{% url 'pamsapp:profile' %}" role="button"
+             id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <img src="{% static 'pams/images/user-default.png' %}" alt="logo" 
+            style="height: 35px; width: 35px;">
+            <span class="ml-2" style="font-size: medium; color:seashell">Profile</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" 
+              style='background-color: rgb(225, 221, 247); font-size: smaller;'>
+              <a class="dropdown-item" href="{% url 'pamsapp:profile-show' %}">View</a>
+              <a class="dropdown-item" href="{% url 'pamsapp:profile' %}">Update Profile</a>
+              <a class="dropdown-item" href="{% url 'accounts:change-pass' %}">Change Password</a>
+            </div>
+          </div>
+
+          {% endif %}  
+
+          <div class="mes rounded rounded-end ">
+            <a href="{% url 'accounts:logout' %}"  style="text-decoration:none">
+              <i style="font-size:22px; color:rgb(14, 13, 13)" class="fa ">&#xf08b;</i>
+              <span style='font-size:15px'>Logout</span>
+            </a>
+          </div>
+
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+   <!-- navbar End -->
+   <div class="container-fluid mt-3">
+    <div class="row mx-auto">  
+      <!-- sidebar --> 
+      <div class="col-lg-2 col-md-3 col-12 mb-2">
+        <div class="list-group text-center">
+          <div class='py-3' style='background-color:#138496'>
+            {% if user.profile.image %}
+              <div style="width:100%; text-align:center">
+                <img class="rounded-circle" style="height:100px; width:100px" src="{{ user.profile.image.url }}" alt="Card image cap">
+              </div>
+            {% else %}
+              <img class="rounded-circle" style="height:100px" src="{% static 'pams/images/user-default.png' %}" alt="Card image cap">  
+            {% endif %}  
+            <br>
+            <h6 class='text-uppercase font-weight-bold'>{{user.name}}</h6>
+            <br>
+            {% if user.user_type == '1' or user.user_type == '2' %}
+              <a href="{% url 'pamsapp:dashboard' %}" class="btn btn-info mb-1 btn-block">Dashboard</a>
+              <a href="{% url 'pamsapp:all-user' %}" class="btn btn-info mb-1 btn-block">All Users</a>
+              <!-- <a href="{% url 'pamsapp:assets-list' %}" class="btn btn-info mb-1 btn-block">Assets List</a> -->
+              <a href="{% url 'Message:inbox' %}" class="btn btn-info mb-1 btn-block">Message</a>
+              <a href="{% url 'pamsapp:designations_list' %}" class="btn btn-info mb-1 btn-block">Designations List</a>
+            {% endif %}
+            <a href="{% url 'pamsapp:home' %}" class="btn btn-info btn-block">Add Properties</a>
+            <a href="{% url 'pamsapp:show-properties' %}" class="btn btn-info mb-1 btn-block">Show Properties</a>
+          </div>
+        </div>
+      </div>
+      <!-- sidebar end -->
+      {% block content %}
+
+      {% endblock %}
+    </div>
+  </div>
+  <footer class="bg-light text-center text-lg-start mt-5">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+      Copyright © 2020  
+      <a class="bootstrap-link"  href="https://bcc.gov.bd/" target="blank">www.bcc.gov.bd</a>
+      All rights reserved. | Powered By BNDA
+    </div>
+  </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+
+    <script src="{% static 'pams/js/bootstrap.js' %}"></script>
+    <script src="{% static 'pams/js/jquery.js' %}"></script>
+    <script src="{% static 'pams/js/popper.js' %}"></script>
+  </body>
+</html>
