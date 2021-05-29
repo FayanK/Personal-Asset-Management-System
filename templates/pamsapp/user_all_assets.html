@@ -40,14 +40,15 @@
   <h3 class='alert alert-light text-center'>Employee Assets</h3>
   <div class='row'>
     <div class="col-lg-12 col-md-12 col-12 text-center">
-      <a href="{% url 'pamsapp:view-user-all-assets' user_id=e_user.id %}">All Assets</a>
-      <a class='mr-3 ml-3' href="{% url 'pamsapp:view-user-immovable' user_id=e_user.id %}">Immovable Assets</a>
-      <a href="{% url 'pamsapp:view-user-movable' user_id=e_user.id %}">movable Assets</a>
+      <a href="{% url 'pamsapp:view-user-all-assets' user_id=e_user.id %}">সকল সম্পদ</a>
+      <a class='mr-3 ml-3' href="{% url 'pamsapp:view-user-immovable' user_id=e_user.id %}">অস্থাবর সম্পদ</a>
+      <a href="{% url 'pamsapp:view-user-movable' user_id=e_user.id %}">স্থাবর সম্পদ</a>
     </div>
   </div>
 
     <div class="row mt-5 text-center ">
       <div class = 'col-lg-10 col-md-10 col-12 text-center mx-auto'>
+        <h2 style="text-align: center; margin-bottom: 20px; text-decoration: underline;">সকল সম্পদ</h2>
           <table class="table table-hover shadow-lg table-sm table-bordered ">
               <thead>
                 <tr class="bg-info" style='color:aliceblue'>
@@ -82,7 +83,7 @@
                   </td> 
                   <td>
                   
-                    <a href="{% url 'pamsapp:edit-land' land.id %}" 
+                    <a href="{% url 'pamsapp:view-land' land.id %}" 
                     class='btn btn-outline-info btn-sm'>View</a>
                   {% if land.is_confirm == True %}
                     <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
@@ -114,7 +115,7 @@
                   </td> 
                   <td>
                   
-                    <a href="{% url 'pamsapp:edit-building' building.id %}" 
+                    <a href="{% url 'pamsapp:view-building' building.id %}" 
                     class='btn btn-outline-info btn-sm'>View</a>
                   {% if building.is_confirm == True %}
                     <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
@@ -146,7 +147,7 @@
                   </td> 
                   <td>
                   
-                    <a href="{% url 'pamsapp:edit-homestead' homestead.id %}" 
+                    <a href="{% url 'pamsapp:view-homestead' homestead.id %}" 
                     class='btn btn-outline-info btn-sm'>View</a>
                   {% if homestead.is_confirm == True %}
                     <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
@@ -178,7 +179,7 @@
                   </td> 
                   <td>
                   
-                    <a href="{% url 'pamsapp:edit-businessfirm' businessFirm.id %}"
+                    <a href="{% url 'pamsapp:view-businessfirm' businessFirm.id %}"
                      class='btn btn-outline-info btn-sm'>View</a>
                   {% if businessFirm.is_confirm == True %}
                     <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
@@ -210,7 +211,7 @@
                 </td> 
                 <td>
                 
-                  <a href="{% url 'pamsapp:edit-other' other.id %}"
+                  <a href="{% url 'pamsapp:view-other' other.id %}"
                    class='btn btn-outline-info btn-sm'>View</a>
                 {% if other.is_confirm == True %}
                   <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
@@ -241,7 +242,7 @@
                 </td> 
                 <td>
                 
-                  <a href="{% url 'pamsapp:edit-ornaments' ornament.id %}"
+                  <a href="{% url 'pamsapp:view-ornament' ornament.id %}"
                    class='btn btn-outline-info btn-sm'>View</a>
                 {% if ornament.is_confirm == True %}
                   <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
@@ -272,7 +273,7 @@
                 </td> 
                 <td>
                 
-                  <a href="{% url 'pamsapp:edit-stocks' stock.id %}" 
+                  <a href="{% url 'pamsapp:view-stock' stock.id %}" 
                   class='btn btn-outline-info btn-sm'>View</a>
                 {% if stock.is_confirm == True %}
                   <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
@@ -303,7 +304,7 @@
                 </td> 
                 <td>
                 
-                  <a href="{% url 'pamsapp:edit-shares' share.id %}"
+                  <a href="{% url 'pamsapp:view-share' share.id %}"
                    class='btn btn-outline-info btn-sm'>View</a>
                 {% if share.is_confirm == True %}
                   <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
@@ -334,7 +335,7 @@
                 </td> 
                 <td>
                 
-                  <a href="{% url 'pamsapp:edit-incurances' insurence.id %}" 
+                  <a href="{% url 'pamsapp:view-insurance' insurence.id %}" 
                   class='btn btn-outline-info btn-sm'>View</a>
                 {% if insurence.is_confirm == True %}
                   <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
@@ -365,7 +366,7 @@
                 </td> 
                 <td>
                 
-                  <a href="{% url 'pamsapp:edit-cash-or-bankvalue' cash_or_bankvalue.id %}" 
+                  <a href="{% url 'pamsapp:view-cash' cash_or_bankvalue.id %}" 
                   class='btn btn-outline-info btn-sm'>View</a>
                 {% if cash_or_bankvalue.is_confirm == True %}
                   <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
@@ -396,7 +397,7 @@
               </td> 
               <td>
               
-                <a href="{% url 'pamsapp:edit-vehicles' vehicle.id %}" 
+                <a href="{% url 'pamsapp:view-vehicle' vehicle.id %}" 
                 class='btn btn-outline-info btn-sm'>View</a>
               {% if vehicle.is_confirm == True %}
                 <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
@@ -427,7 +428,7 @@
               </td> 
               <td>
               
-                <a href="{% url 'pamsapp:edit-electronics' electronic.id %}" 
+                <a href="{% url 'pamsapp:view-electronics' electronic.id %}" 
                 class='btn btn-outline-info btn-sm'>View</a>
               {% if electronic.is_confirm == True %}
                <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>
@@ -458,7 +459,7 @@
               </td> 
               <td>
               
-                <a href="{% url 'pamsapp:edit-other-m' other_m.id %}" 
+                <a href="{% url 'pamsapp:view-other-m' other_m.id %}" 
                 class='btn btn-outline-info btn-sm'>View</a>
               {% if other_m.is_confirm == True %}
               <button class='bg-success' style='color:azure' disabled="disabled">Confirmed</button>

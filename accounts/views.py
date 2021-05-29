@@ -57,7 +57,7 @@ def login_view(request):
             login(request, user_obj)
             if _next:
                 return redirect(_next)
-            return redirect('pamsapp:home')
+            return redirect('pamsapp:profile')
         return render(request, 'registration/login.html', {'form': form})
 
     else:

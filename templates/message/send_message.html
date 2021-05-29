@@ -8,7 +8,7 @@
 	<div class="col-lg-12 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Sending message to <span class="badge badge-success">{% if user.profile.username %}{{ user.profile.username }}{% else %}{{ user.email }}{% endif %}</span></h4>
+				<h4 class="card-title">Sending message to <span class="badge badge-success">{% if euser.profile.username %}{{ euser.profile.username }}{% else %}{{ euser.email }}{% endif %}</span></h4>
 				<form action="" method="POST">{% csrf_token %}
 					{{ form|crispy }}
 					<a href="{% url 'Message:inbox' %}" class="btn btn-warning">Back</a>

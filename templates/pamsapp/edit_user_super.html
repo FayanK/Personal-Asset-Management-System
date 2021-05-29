@@ -20,6 +20,12 @@
                         <label class="font-weight-bold">Select Gender</label>
                         {{ profile_form.gender }}
                     </div>
+                    {% if user.user_type == '1' %}
+                        <div class="form-group">
+                            <label class="font-weight-bold">Select User Type</label>
+                            {{user_form.user_type}}
+                        </div>
+                    {%  endif %}
                     <div class="form-group">
                         <label class="font-weight-bold">Designation</label>
                         {{ profile_form.designation }}
@@ -40,7 +46,7 @@
                         <label class="font-weight-bold">Set Stuff</label>
                         {{user_form.is_staff}}
                     </div>
-                    <button type = 'submit' class = 'btn btn-success btn-block'>Update</button>    
+                    <button type = 'submit' class = 'btn btn-success btn-block'>Update</button>      
             </form>
           </div>
       </div>

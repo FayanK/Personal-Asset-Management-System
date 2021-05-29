@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class = 'col-lg-6 col-md-8 col-10  shadow-lg mx-auto'>
+  <h3 class='alert alert-light text-lg-center'>মোটর ভেহীকলস</h3>
+  <div class='py-2 px-2' style = 'width:100%;'>
+    <table class="table table-striped table-info">
+        <tbody>
+          <tr>
+            <td style='width:350px' >সম্পদ অর্জনের তারিখ</td>
+            <td class='bg-white text-justify'>{{vehicle.date_of_acquisition}}</td>
+          </tr>
+          <tr>
+            <td>যার নামে অর্জিত</td>
+            <td class='bg-white text-justify'>{{vehicle.owner}}</td>
+          </tr>
+          <tr>
+            <td>সম্পদ/ সম্পত্তির প্রকৃতি ও অবস্থান</td>
+            <td class='bg-white text-justify'>{{vehicle.class_and_location}}</td>
+          </tr>
+          <tr>
+            <td>সম্পত্তির বিবরণ</td>
+            <td class='bg-white text-justify'>{{vehicle.details}}</td>
+          </tr>
+          <tr>
+            <td>কিভাবে অর্জিত ও অর্জনের তারিখে মূল্য</td>
+            <td class='bg-white text-justify'>{{vehicle.how_acquired_and_value}}</td>
+          </tr>
+          <tr>
+            <td>ক্রয় হলে অর্থের উৎস</td>
+            <td class='bg-white text-justify'>{{vehicle.source_of_money}}</td>
+          </tr>
+          <tr>
+            <td>মতামত</td>
+            <td class='bg-white text-justify'>{{vehicle.opinon}}</td>
+          </tr>
+          <tr>
+            <td>সাক্ষর</td>
+            <td class='bg-white'>
+                <div style="width:100%; text-align:center">
+                    <img style='width: 200px; height: 100px'  src="{{ vehicle.signature.url }}" alt="সাক্ষর">
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td>প্রমাণ পত্র সমূহ</td>
+            <td class='bg-white'>
+                
+                    {% for note in vehicle.vehicles.all %}
+                    <a class='ml-5'  href="{{ note.notefield.url }}" download>Attechmet {{ forloop.counter }}</a> <br>
+                    {% endfor %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+{% endblock %}
+

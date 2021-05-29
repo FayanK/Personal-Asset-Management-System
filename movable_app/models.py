@@ -1,6 +1,9 @@
 from django.db import models
 from accounts.models import CustomUser
 from django.contrib.auth import get_user_model
+from PIL import Image
+from django.conf import settings
+import os
 
 User = get_user_model()
 
@@ -17,9 +20,17 @@ class Ornaments(models.Model):
     signature = models.ImageField()
     is_confirm = models.BooleanField(default=False)  
 
-
     def __str__(self):
         return str(self.user)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)
 
 
 class Stocks(models.Model):
@@ -36,6 +47,15 @@ class Stocks(models.Model):
 
     def __str__(self):
         return str(self.user)
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)
 
 
 class Share(models.Model):
@@ -53,6 +73,15 @@ class Share(models.Model):
     def __str__(self):
         return str(self.user)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)
+
 
 class Insurance(models.Model):
     user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
@@ -68,6 +97,15 @@ class Insurance(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)
 
 
 class Cash_or_bankvalue(models.Model):
@@ -85,6 +123,15 @@ class Cash_or_bankvalue(models.Model):
     def __str__(self):
         return str(self.user)  
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)
+
 class Vehicles(models.Model):
     user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
     date_of_acquisition = models.DateField()
@@ -99,6 +146,15 @@ class Vehicles(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)
 
 class Electronics(models.Model):
     user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
@@ -115,6 +171,15 @@ class Electronics(models.Model):
     def __str__(self):
         return str(self.user)    
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)
+
 class Other_m(models.Model):
     user = models.ForeignKey(CustomUser, on_delete = models.CASCADE, related_name='+')
     date_of_acquisition = models.DateField()
@@ -130,6 +195,15 @@ class Other_m(models.Model):
     def __str__(self):
         return str(self.user)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)
+
 class NoteField(models.Model):
     ornament = models.ForeignKey(Ornaments, on_delete = models.CASCADE, related_name='ornaments', null= True, blank = True)
     stock = models.ForeignKey(Stocks, on_delete = models.CASCADE, related_name='stocks', null= True, blank = True)
@@ -143,3 +217,12 @@ class NoteField(models.Model):
     
     def __str__(self):
         return str(self.pk)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)

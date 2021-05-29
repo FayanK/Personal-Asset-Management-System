@@ -24,8 +24,8 @@
                 <th scope="col">Employee Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Phone Number</th>
-                <th scope="col">Designation</th>
-                <th scope="col">Gender</th>
+                <!-- <th scope="col">Designation</th>
+                <th scope="col">Gender</th> -->
                 <th colspan="2" class="bg-gradient" scope="col">Action</th>
               </tr>
             </thead>
@@ -35,10 +35,17 @@
                 <td class='text-left'>{{ user.name }}</td>
                 <td >{{ user.email }}</td>
                 <td>{{ user.phone_no }}</td>
-                <td>{{ user.profile.designation }}</td>
-                <td>{{ user.profile.get_gender_display }}</td>
+                <!-- <td>{{ user.profile.designation }}</td>
+                <td>{{ user.profile.get_gender_display }}</td> -->
                 <td>
-                  <a href="{% url 'pamsapp:view-user' user.id %}" class='btn btn-outline-primary btn-sm'>View</a>
+                  {% if request.user.id != user.id %}
+                    <a class='btn btn-sm btn-primary'
+                     href="{% url 'Message:send-message' user_id=user.id %}">Message</a>
+                  {% endif %}
+                </td>
+                <td>
+                  <a href="{% url 'pamsapp:view-user' user.id %}" 
+                  class='btn btn-outline-primary btn-sm'>View</a>
                   {% if request.user.user_type == '2' and user.user_type == '1' %}
                     <p class='bg-warning py-1 d-inline'>Super Admin</p>
                   {% else %}

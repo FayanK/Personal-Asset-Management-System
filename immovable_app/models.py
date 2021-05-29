@@ -2,6 +2,8 @@ from django.db import models
 from accounts.models import CustomUser
 from django.contrib.auth import get_user_model
 from PIL import Image
+from django.conf import settings
+import os
 
 
 User = get_user_model()
@@ -23,6 +25,15 @@ class Land(models.Model):
     def __str__(self):
         return str(self.user)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)
+
 
 class Building(models.Model):
     user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
@@ -38,16 +49,15 @@ class Building(models.Model):
 
     def __str__(self):
         return str(self.user)
-    
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        img = Image.open(self.signature.path)
+        size = 300, 300
 
-        if img.height > 300 or img.height < 300 or img.width >300 or img.width <300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.signature.path)
-
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)
 
 class Homestead(models.Model):
     user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
@@ -64,6 +74,14 @@ class Homestead(models.Model):
     def __str__(self):
         return str(self.user)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)
 
 class BusinessFirm(models.Model):
     user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
@@ -80,6 +98,14 @@ class BusinessFirm(models.Model):
     def __str__(self):
         return str(self.user)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)
 
 class Other(models.Model):
     user = models.ForeignKey(CustomUser, on_delete = models.CASCADE, related_name='+')
@@ -96,6 +122,14 @@ class Other(models.Model):
     def __str__(self):
         return str(self.user)  
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)
     
 class NoteField_im(models.Model):
     land = models.ForeignKey(Land, on_delete = models.CASCADE, related_name='lands', null= True, blank = True)
@@ -107,3 +141,12 @@ class NoteField_im(models.Model):
     
     def __str__(self):
         return str(self.pk)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        size = 300, 300
+
+        if self.signature:
+            pic = Image.open(self.signature.path)
+            pic.thumbnail(size, Image.LANCZOS)
+            pic.save(self.signature.path)

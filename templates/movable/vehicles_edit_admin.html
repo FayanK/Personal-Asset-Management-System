@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class = 'col-lg-6 col-md-8 col-10  shadow-lg mx-auto'>
-  <h3 class='alert alert-light'>স্টকস</h3>
+  <h3 class='alert alert-light'>মোটর ভেহীকলস</h3>
   <div class='py-2 px-2' style = 'width:100%;'>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
@@ -58,14 +58,14 @@
           <p style='font-size:smaller'>অবশ্যই ৩০০ × ৩০০ সাইজের হতে হবে।</p>
         </div>
         <div style="width:100%; text-align:center">
-          <img style='width: 200px; height: 100px'  src="{{ ornament.signature.url }}" alt="সাক্ষর">
+          <img style='width: 200px; height: 100px'  src="{{ vehicle.signature.url }}" alt="সাক্ষর">
         </div>
         {{form.signature}}
        </div>
 
        <div>
         <label  class="font-weight-bold">প্রমাণ পত্র সমূহ</label>
-           {% for note in ornament.ornaments.all %}
+           {% for note in vehicle.vehicles.all %}
            <a href="{{ note.notefield.url }}" download>Attechmet {{ forloop.counter }}</a>
            {% endfor %}
        </div>
@@ -102,7 +102,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <a href="{% url 'pamsapp:delete-ornaments-admin' ornament_id=ornament.id %}" 
+                <a href="{% url 'pamsapp:delete-vehicle-admin' vehicle_id=vehicle.id %}" 
                     class='btn btn-primary text-center ml-2'>Yes</a>
               </div>
             </div>

@@ -26,9 +26,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Personal Asset Management System</title>
 
     <style>
+      
       .not {
         right: 0px;
         
@@ -187,15 +189,7 @@
           </li>
         {% else %}
 
-        <div class="mes rounded rounded-end ">
-          <a href="{% url 'pamsapp:assets-list-pending' %}"  style="text-decoration:none">
-            <i style="font-size:22px; color:rgb(0, 0, 0)" class="fa ">&#xf075;</i>
-            <span style='font-size:15px'>message</span>
-            <!-- {% if notification %}
-            <span class="badge badge-danger" style='font-size:15px'>{{ notification }}</span>
-            {% endif %} -->
-          </a>
-        </div>
+
         {% if user.user_type == '1' or user.user_type == '2' %}
         <div class="not rounded rounded-end ">
           <a href="{% url 'pamsapp:assets-list-pending' %}"  style="text-decoration:none">
@@ -274,19 +268,20 @@
             {% if user.user_type == '1' or user.user_type == '2' %}
               <a href="{% url 'pamsapp:dashboard' %}" class="btn btn-info mb-1 btn-block">Dashboard</a>
               <a href="{% url 'pamsapp:all-user' %}" class="btn btn-info mb-1 btn-block">All Users</a>
-              <!-- <a href="{% url 'pamsapp:assets-list' %}" class="btn btn-info mb-1 btn-block">Assets List</a> -->
-              <a href="{% url 'Message:inbox' %}" class="btn btn-info mb-1 btn-block">Message</a>
               <a href="{% url 'pamsapp:designations_list' %}" class="btn btn-info mb-1 btn-block">Designations List</a>
             {% endif %}
+            <a href="{% url 'Message:inbox' %}" class="btn btn-info mb-1 btn-block">Message</a>
             <a href="{% url 'pamsapp:home' %}" class="btn btn-info btn-block">Add Properties</a>
             <a href="{% url 'pamsapp:show-properties' %}" class="btn btn-info mb-1 btn-block">Show Properties</a>
           </div>
         </div>
       </div>
       <!-- sidebar end -->
-      {% block content %}
+      
+        {% block content %}
 
-      {% endblock %}
+        {% endblock %}
+
     </div>
   </div>
   <footer class="bg-light text-center text-lg-start mt-5">

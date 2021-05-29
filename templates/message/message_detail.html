@@ -4,7 +4,73 @@
 
 
 {% block content %}
-<div class="email-wrapper wrapper">
+<div class="col-lg-10 col-md-8 col-10 mx-auto ">
+	<div class="row">
+		<div class="col-md-12 mb-4 mt-4">
+			<div class="btn-toolbar mb-3">
+				<div class="btn-group">
+					<a href="{% url 'Message:inbox' %}" class="btn btn-sm btn-outline-secondary"><i class="mdi mdi-reply text-primary"></i> Back</a>
+					<button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="mdi mdi-reply text-primary"></i> Reply</button>
+				</div>
+				<div class="btn-group">
+					<a href="{% url 'Message:delete-message' msg_id=msg.pk %}" onclick="return confirm('Are you sure to delete this message ?')" class="btn btn-sm btn-outline-secondary"><i class="mdi mdi-delete text-primary"></i>Delete</a>
+				</div>
+			</div>
+			<div class="sender-details">
+				<img style="width:150px; height:150px; border-radius: 50%;"  class="img-sm rounded-circle mr-3" src="{% if msg.sender.profile.image %}{{ msg.sender.profile.image.url }}{% else %}{% static 'p_default_image/profile.jpg' %}{% endif %}" alt="Image not fount">
+				<div class="details">
+					<p class="msg-subject mb-0">
+						{{ msg.sent_at|timesince }} ago .
+					</p>
+					<p class="sender-email mb-0">
+						<a href="">From : {% if msg.sender.profile.username %}
+							{{ msg.sender.profile.username }}
+							{% else %}
+							{{ msg.sender }}
+							{% if msg.sender.user_type == '1' or msg.sender.user_type == '2' %}
+							<span style="font-weight: bold; color: black;">({{ msg.sender.get_user_type_display }})</span>
+							{% endif %}
+							{% endif %}
+							&nbsp;<i class="mdi mdi-account-multiple-plus"></i></a>
+					</p>
+				</div>
+			</div>
+			<div class="message-content">
+				<p class='mb-0'>To : {% if msg.receiver.profile.username %}{{ msg.receiver.profile.username }}{% else %}{{ msg.receiver }}{% endif %},</p>
+				<p style="max-width:400px; padding-left:20px; background: rgb(247, 232, 199); padding-top: 5px;">{{ msg.message }}</p>
+				<p><br>Regards,<br>
+					{% if msg.sender.profile.username %}
+					{{ msg.sender.profile.username }}
+					{% else %}
+					{{ msg.sender }}
+					{% endif %}</p>
+			</div>
+			{% for reply in msg.reply.all %}
+			<div class="message-body">
+				<div class="sender-details">
+					<div class="details">
+						<p class="msg-subject mb-0 mt-3">
+							Replied to {% if reply.msg.sender.profile.username %}{{ reply.msg.sender.profile.username }}{% else %}{{ reply.msg.sender }}{% endif %},
+							{{ reply.sent_at|timesince }} ago .
+						</p>
+					</div>
+				</div>
+				<div class="message-content " style="padding-left:20px; background: rgb(247, 232, 199); max-width:400px; padding-top: 5px;">
+					<p>{{ reply.message }} -----{% if reply.msg.receiver.profile.username %}
+						{{ reply.msg.receiver.profile.username }}
+						{% else %}
+						{{ reply.msg.receiver }}
+						{% endif %}</p>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+
+
+<!-- <div class="email-wrapper wrapper">
 	<div class="row align-items-stretch">
 		<div class="mail-view d-none d-md-block col-md-12 bg-white">
 			<div class="row">
@@ -22,7 +88,7 @@
 			</div>
 			<div class="message-body">
 				<div class="sender-details">
-					<img class="img-sm rounded-circle mr-3" src="{% if msg.sender.profile.image %}{{ msg.sender.profile.image.url }}{% else %}{% static 'p_default_image/profile.jpg' %}{% endif %}" alt="Image not fount">
+					<img style="width:200px; height:200px; border-radius: 50%;"  class="img-sm rounded-circle mr-3" src="{% if msg.sender.profile.image %}{{ msg.sender.profile.image.url }}{% else %}{% static 'p_default_image/profile.jpg' %}{% endif %}" alt="Image not fount">
 					<div class="details">
 						<p class="msg-subject">
 							{{ msg.sent_at|timesince }} ago .
@@ -69,7 +135,7 @@
 			{% endfor %}
 		</div>
 	</div>
-</div>
+</div> -->
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
